@@ -24,13 +24,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final currentDateProvider = Provider<DateTime>((ref) => DateTime.now());
+
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final date = ref.watch(currentDateProvider);
+
     return Scaffold(
       appBar: AppBar(title: const Text('Timer App')),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Text(
+            date.toIso8601String(),
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+        ),
+      ),
     );
   }
 }
